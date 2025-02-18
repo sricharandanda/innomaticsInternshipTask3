@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Ticket Booking</title>
+</head>
+<body>
+    <h2>Flight Ticket Booking</h2>
+    <form onsubmit="return calculateFlightFare()">
+        <label for="classType">Class Type:</label>
+        <select id="classType" name="classType">
+            <option value="Economy">Economy</option>
+            <option value="Business">Business</option>
+            <option value="First">First</option>
+        </select><br><br>
+
+        <label for="luggageWeight">Luggage Weight (kg):</label>
+        <input type="number" id="luggageWeight" name="luggageWeight" required><br><br>
+
+        <label for="isStudent">Student:</label>
+        <input type="checkbox" id="isStudent" name="isStudent"><br><br>
+
+        <label for="isSenior">Senior (above 60 years old):</label>
+        <input type="checkbox" id="isSenior" name="isSenior"><br><br>
+
+        <input type="submit" value="Calculate Fare">
+    </form>
+    
+    <p id="result"></p>
+
+    <script>
+        function calculateFlightFare() {
+            const classType = document.getElementById('classType').value;
+            const luggageWeight = parseFloat(document.getElementById('luggageWeight').value);
+            const isStudent = document.getElementById('isStudent').checked;
+            const isSenior = document.getElementById('isSenior').checked;
+            let baseFare = 300;
+
+            // Adjust fare based on class type
+            if (classType === "Business") {
+                baseFare += 200;
+            } else if (classType === "First") {
+                baseFare += 500;
+            }
+
+            // Extra luggage charges (if weight exceeds 20kg)
+            if (luggageWeight > 20) {
+                const extraLuggage = Math.ceil((luggageWeight - 20) / 10);  // 10kg blocks
+                baseFare += extraLuggage * 50;
+            }
+
+            // Apply discounts for students or seniors
+            if (isStudent) {
+                baseFare *= 0.85;  // 15% discount
+            } else if (isSenior) {
+                baseFare *= 0.9;  // 10% discount
+            }
+
+            // Display the final fare correctly
+            document.getElementById('result').innerText = `Final Fare: $${baseFare.toFixed(2)}`;
+            return false;
+        }
+    </script>
+</body>
+</html>

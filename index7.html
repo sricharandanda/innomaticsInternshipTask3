@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Coupon Redemption</title>
+</head>
+<body>
+    <h2>E-commerce Coupon Redemption</h2>
+    <form onsubmit="return applyCoupon()">
+        <label for="orderAmount">Order Amount:</label>
+        <input type="number" id="orderAmount" name="orderAmount" required><br><br>
+        <label for="couponCode">Coupon Code:</label>
+        <input type="text" id="couponCode" name="couponCode" required><br><br>
+        <input type="submit" value="Apply Coupon">
+    </form>
+    <p id="result"></p>
+
+    <script>
+        function applyCoupon() {
+            const orderAmount = parseFloat(document.getElementById('orderAmount').value);
+            const couponCode = document.getElementById('couponCode').value;
+            let finalPrice;
+
+            if (couponCode === "DISCOUNT10" && orderAmount > 500) {
+                finalPrice = orderAmount * 0.9;
+            } else if (couponCode === "FREESHIP" && orderAmount > 200) {
+                finalPrice = orderAmount;  // Free shipping doesn't affect the order amount
+            } else {
+                finalPrice = orderAmount;  // Invalid coupon or amount not qualifying for discount
+            }
+
+            document.getElementById('result').innerText = `Final Price: $${finalPrice.toFixed(2)}`;
+            return false;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Membership Plan</title>
+</head>
+<body>
+    <h2>Fitness Membership Plan</h2>
+    <form onsubmit="return choosePlan()">
+        <label for="planType">Plan Type:</label>
+        <select id="planType" name="planType">
+            <option value="Basic">Basic</option>
+            <option value="Premium">Premium</option>
+            <option value="VIP">VIP</option>
+        </select><br><br>
+        <label for="wantsTrainer">Wants Trainer:</label>
+        <input type="checkbox" id="wantsTrainer" name="wantsTrainer"><br><br>
+        <label for="wantsDietPlan">Wants Diet Plan:</label>
+        <input type="checkbox" id="wantsDietPlan" name="wantsDietPlan"><br><br>
+        <input type="submit" value="Choose Plan">
+    </form>
+    <p id="result"></p>
+
+    <script>
+        function choosePlan() {
+            const planType = document.getElementById('planType').value;
+            const wantsTrainer = document.getElementById('wantsTrainer').checked;
+            const wantsDietPlan = document.getElementById('wantsDietPlan').checked;
+            let plan;
+
+            if (planType === "VIP") {
+                plan = "VIP Plan - $80/month";
+            } else if (planType === "Premium") {
+                plan = "Premium Plan - $50/month";
+            } else {
+                plan = "Basic Plan - $20/month";
+            }
+
+            // Upgrade based on additional services
+            if (wantsTrainer || wantsDietPlan) {
+                if (planType === "Basic") {
+                    plan = "Premium Plan - $50/month"; // Upgrade Basic to Premium if any add-on is selected
+                }
+                if (wantsTrainer && wantsDietPlan) {
+                    plan = "VIP Plan - $80/month"; // Upgrade to VIP if both are selected
+                }
+            }
+
+            document.getElementById('result').innerText = `Suggested Plan: ${plan}`;
+            return false;
+        }
+    </script>
+</body>
+</html>

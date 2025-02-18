@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Application Filter</title>
+    <script>
+        function isEligibleForJob() {
+            const age = parseInt(document.getElementById('age').value);
+            const experience = parseInt(document.getElementById('experience').value);
+            const qualification = document.getElementById('qualification').value;
+            const isEligible = (21 <= age && age <= 55 && experience >= 2 && qualification === "Bachelor's Degree");
+
+            document.getElementById('result').innerText = isEligible ? "Eligible for the job" : "Not eligible for the job";
+        }
+    </script>
+</head>
+<body>
+    <h2>Job Application Filter</h2>
+    <form onsubmit="isEligibleForJob(); return false;">
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <label for="experience">Experience (years):</label>
+        <input type="number" id="experience" name="experience" required><br><br>
+
+        <label for="qualification">Qualification:</label>
+        <select id="qualification" name="qualification" required>
+            <option value="">Select</option>
+            <option value="Bachelor's Degree">Bachelor's Degree</option>
+            <option value="Master's Degree">Master's Degree</option>
+            <option value="Diploma">Diploma</option>
+        </select><br><br>
+
+        <button type="submit">Check Eligibility</button>
+    </form>
+
+    <p id="result"></p>
+</body>
+</html>

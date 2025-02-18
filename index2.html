@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>online Discount & Shipping</title>
+</head>
+<body>
+    <h2>online Discount & Shipping</h2>
+    <form onsubmit="return calculateFinalAmount()">
+        <label for="orderAmount">Order Amount:</label>
+        <input type="number" id="orderAmount" name="orderAmount" required><br><br>
+        <input type="submit" value="Calculate Final Amount">
+    </form>
+    <p id="result"></p>
+
+    <script>
+        function calculateFinalAmount() {
+            const orderAmount = parseFloat(document.getElementById('orderAmount').value);
+            let finalPrice = orderAmount;
+            let message = "";
+
+            if (orderAmount > 1000) {
+                finalPrice *= 0.8;
+                message = "20% discount applied!";
+            } else if (orderAmount >= 500) {
+                finalPrice *= 0.9;
+                message = "10% discount applied!";
+            } else {
+                message = "No discount applied.";
+            }
+
+            if (orderAmount > 50) {
+                message += " Free shipping applied!";
+            } else {
+                finalPrice += 10;
+                message += " Express shipping ($10) applied!";
+            }
+
+            document.getElementById('result').innerText = `${message} Final Price: $${finalPrice.toFixed(2)}`;
+            return false;
+        }
+    </script>
+</body>
+</html>

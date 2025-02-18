@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic Light Control</title>
+    <script>
+        function trafficLightControl() {
+            const density = document.getElementById('density').value;
+            let duration;
+
+            if (density === "Heavy Traffic") {
+                duration = 60;
+            } else if (density === "Moderate Traffic") {
+                duration = 40;
+            } else if (density === "Light Traffic") {
+                duration = 20;
+            } else {
+                duration = 0;
+            }
+
+            document.getElementById('result').innerText = `Green signal duration: ${duration} seconds`;
+        }
+    </script>
+</head>
+<body>
+    <h2>Traffic Light Control</h2>
+    <form onsubmit="trafficLightControl(); return false;">
+        <label for="density">Traffic Density:</label>
+        <select id="density" name="density" required>
+            <option value="Heavy Traffic">Heavy Traffic</option>
+            <option value="Moderate Traffic">Moderate Traffic</option>
+            <option value="Light Traffic">Light Traffic</option>
+        </select><br><br>
+        <button type="submit">Calculate</button>
+    </form>
+    <p id="result"></p>
+</body>
+</html>

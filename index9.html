@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Bill Calculation</title>
+</head>
+<body>
+    <h2>Electricity Bill Calculation</h2>
+    <form onsubmit="return calculateElectricityBill()">
+        <label for="units">Units Consumed:</label>
+        <input type="number" id="units" name="units" required><br><br>
+        
+        <label for="timeOfDay">Time of Day:</label>
+        <select id="timeOfDay" name="timeOfDay">
+            <option value="Normal">Normal (8 AM - 8 PM)</option>
+            <option value="Peak">Peak (8 PM - 8 AM)</option>
+        </select><br><br>
+        
+        <input type="submit" value="Calculate Bill">
+    </form>
+    
+    <p id="result"></p>
+
+    <script>
+        function calculateElectricityBill() {
+            const units = parseFloat(document.getElementById('units').value);
+            const timeOfDay = document.getElementById('timeOfDay').value;
+            let cost = 0;
+
+            let base_rate = timeOfDay === "Peak" ? 1.1 : 1; // Peak time adds a 10% surcharge
+
+            if (units < 100) {
+                cost = units * 5;
+            } else if (units <= 300) {
+                cost = (100 * 5) + ((units - 100) * 4);
+            } else {
+                cost = (100 * 5) + (200 * 4) + ((units - 300) * 3);
+            }
+
+            const totalBill = cost * base_rate;
+            document.getElementById('result').innerText = `Total Bill: $${totalBill.toFixed(2)}`;
+            return false;
+        }
+    </script>
+</body>
+</html>
